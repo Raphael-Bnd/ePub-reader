@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leitor de EPUB</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.5.1.js"
+    ></script>
+  </head>
+
+  <body>
+    <div class="epub-read-container">
+      <div id="FileSelectArea">
+        <div class="pWindow">
+          <a href="https://github.com/Raphael-Bnd"
+            ><img id="book" src="src/book.png" alt="Logo de um livro aberto"
+          /></a>
+          <div class="InputWindow">
+            <input type="file" id="input-book" accept=".epub" single />
+          </div>
+          <div class="ButtonWindow">
+            <button class="submitButton">Submit</button>
+          </div>
+        </div>
+      </div>
+      <div id="epub-contents"></div>
+      <div class="epub-nav">
+        <button id="prevPage">Prev</button>
+        <button id="spread">Spread</button>
+        <button id="nextPage">Next</button>
+        <input id="fontSize" type="number" placeholder="Font Size" />
+      </div>
+    </div>
+  </body>
+  <script src="scripts.js"></script>
+</html>
