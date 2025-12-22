@@ -69,10 +69,8 @@ $('#input-book').on('change', function () {
 });
 
 $('.submitButton').on('click', function () {
-  if (book) {
-    if (rendition) {
-      rendition.destroy();
-    }
+  if (book && rendition) {
+    rendition.destroy();
   }
   if (book) {
     book.ready.then(function () {
