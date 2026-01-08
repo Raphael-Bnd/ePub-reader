@@ -120,9 +120,13 @@ $('#nextPage').on('click', function () {
   }
 });
 
-$('#nextPage').on('keydown', function () {
-  if (rendition && e.key === "ArrowLeft") {
-    rendition.next();
+$(document).on('keydown', function (e) {
+  if (rendition) {
+    if (e.key === 'ArrowLeft') {
+      rendition.prev();
+    } else if (e.key === 'ArrowRight') {
+      rendition.next();
+    }
   }
 });
 
