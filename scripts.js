@@ -79,6 +79,39 @@ $('#input-book').on('change', function () {
       var data = event.target.result;
       book = ePub(data);
       console.log('Livro carregado na memoria e pronto para uso.');
+
+      // Renderizar automaticamente após carregar
+      book.ready.then(function () {
+        if (rendition) {
+          rendition.destroy();
+        }
+
+        rendition = book.renderTo('epub-contents', {
+          method: 'default',
+          width: '100%',
+          height: 750,
+          flow: 'paginated',
+          spread: 'none',
+          minSpreadWidth: 1200,
+          manager: 'default',
+        });
+        rendition.hooks.content.register(function (contents) {
+          contents.addStylesheetRules({
+            body: {
+              overflow: 'hidden !important',
+              color: 'white !important',
+              background: 'transparent !important',
+              'font-family': 'Arial, sans-serif !important',
+            },
+            p: {
+              color: 'white !important',
+              'font-size': '24px !important',
+            },
+          });
+          registerKeyboardNavigation(contents);
+        });
+        rendition.display();
+      });
     };
     reader.readAsArrayBuffer(file);
   }
