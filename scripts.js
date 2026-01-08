@@ -2,6 +2,18 @@ var book;
 var bookUrl;
 var rendition;
 
+// Função para registrar a navegação por teclado
+function registerKeyboardNavigation(contents) {
+  contents.document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') {
+      rendition.prev();
+    } else if (e.key === 'ArrowRight') {
+      rendition.next();
+    }
+  });
+}
+
+// Manipulador de evento para mudança de tamanho da fonte
 $('#fontSize').on('change', function () {
   let currentCfi = rendition.currentLocation().start.cfi;
   var font = $(this).val();
@@ -20,6 +32,7 @@ $('#fontSize').on('change', function () {
       minSpreadWidth: newMinSpread,
     });
   }
+  // Aplicar as novas regras de estilo com o tamanho da fonte atualizado
   rendition.hooks.content.register(function (contents) {
     contents.addStylesheetRules({
       body: {
@@ -33,11 +46,13 @@ $('#fontSize').on('change', function () {
         'font-size': font + 'px' + ' !important',
       },
     });
+    registerKeyboardNavigation(contents);
     $(this).blur();
   });
   rendition.display(currentCfi);
 });
 
+// Manipuladores de eventos para o botão de tamanho da fonte
 $('#fontSize').on({
   click: function () {
     $(this).toggleClass('inactive');
@@ -53,6 +68,7 @@ $('#fontSize').on({
   },
 });
 
+// Manipulador de evento para seleção de arquivo e carregamento do livro
 $('#input-book').on('change', function () {
   var file = $(this).prop('files')[0];
 
@@ -68,6 +84,7 @@ $('#input-book').on('change', function () {
   }
 });
 
+// Manipulador de evento para o botão de submissão e renderização do livro
 $('.submitButton').on('click', function () {
   if (book && rendition) {
     rendition.destroy();
@@ -100,6 +117,7 @@ $('.submitButton').on('click', function () {
             'font-size': '24px !important',
           },
         });
+        registerKeyboardNavigation(contents);
       });
       rendition.display();
     });
@@ -108,18 +126,21 @@ $('.submitButton').on('click', function () {
   }
 });
 
+// Manipuladores de evento para o botão de voltar página
 $('#prevPage').on('click', function () {
   if (rendition) {
     rendition.prev();
   }
 });
 
+// Manipulador de evento para o botão de próxima página
 $('#nextPage').on('click', function () {
   if (rendition) {
     rendition.next();
   }
 });
 
+// Manipulador de evento para navegação por setas do teclado
 $(document).on('keydown', function (e) {
   if (rendition) {
     if (e.key === 'ArrowLeft') {
@@ -130,6 +151,7 @@ $(document).on('keydown', function (e) {
   }
 });
 
+// Manipulador de evento para o botão de alternância de visualização em página única/dupla
 $('#spread').on('click', function () {
   if (book && rendition) {
     let currentCfi = rendition.currentLocation().start.cfi;
@@ -161,6 +183,7 @@ $('#spread').on('click', function () {
           'font-size': '24px !important',
         },
       });
+      registerKeyboardNavigation(contents);
     });
     rendition.display(currentCfi);
 
