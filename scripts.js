@@ -120,6 +120,12 @@ $('#nextPage').on('click', function () {
   }
 });
 
+$('#nextPage').on('keydown', function () {
+  if (rendition && e.key === "ArrowLeft") {
+    rendition.next();
+  }
+});
+
 $('#spread').on('click', function () {
   if (book && rendition) {
     let currentCfi = rendition.currentLocation().start.cfi;
