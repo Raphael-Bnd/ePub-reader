@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,6 +16,9 @@
 
   <body>
     <div class="epub-read-container">
+      <div class="drop-hint" aria-hidden="true">
+        Solte um arquivo EPUB aqui para abrir
+      </div>
       <div id="FileSelectArea">
         <div class="pWindow">
           <a href="https://github.com/Raphael-Bnd"
@@ -24,9 +27,9 @@
           <div class="InputWindow">
             <input type="file" id="input-book" accept=".epub" single />
           </div>
-          <div class="ButtonWindow">
-            <button class="submitButton">Submit</button>
-          </div>
+          <button id="resetReader" type="button" aria-label="Reset reader">
+            X
+          </button>
         </div>
       </div>
       <div id="epub-contents"></div>
