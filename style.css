@@ -183,6 +183,10 @@ button:active {
   gap: clamp(12px, 1.2vw, 20px);
 }
 
+#fullscreenToggle {
+  display: none;
+}
+
 #FileSelectArea {
   position: relative;
   z-index: 2;
@@ -240,6 +244,21 @@ button:active {
 @media (max-width: 768px) {
   body {
     padding: 12px;
+  }
+
+  #fullscreenToggle {
+    display: inline-flex;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 50;
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
   }
 
   .drop-hint {
