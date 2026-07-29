@@ -131,46 +131,6 @@ function setEmptyState(isEmpty) {
   $('.epub-read-container').toggleClass('empty', isEmpty);
 }
 
-function isFullscreenActive() {
-  return Boolean(
-    document.fullscreenElement || document.webkitFullscreenElement,
-  );
-}
-
-function updateFullscreenButton() {
-  var isActive = isFullscreenActive();
-
-  $('#fullscreenToggle')
-    .text(isActive ? '⤫' : '⛶')
-    .attr(
-      'aria-label',
-      isActive ? 'Sair do modo tela cheia' : 'Ativar modo tela cheia',
-    );
-}
-
-async function toggleFullscreen() {
-  var container = document.querySelector('.epub-read-container');
-
-  if (!container) {
-    return;
-  }
-
-  if (isFullscreenActive()) {
-    if (document.exitFullscreen) {
-      await document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      await document.webkitExitFullscreen();
-    }
-    return;
-  }
-
-  if (container.requestFullscreen) {
-    await container.requestFullscreen();
-  } else if (container.webkitRequestFullscreen) {
-    await container.webkitRequestFullscreen();
-  }
-}
-
 function resetReader() {
   if (rendition) {
     rendition.destroy();
@@ -179,14 +139,6 @@ function resetReader() {
 
   if (book) {
     book = null;
-  }
-
-  if (isFullscreenActive()) {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    }
   }
 
   $('#input-book').val('');
@@ -200,19 +152,8 @@ $('#resetReader').on('click', function () {
   resetReader();
 });
 
-$('#fullscreenToggle').on('click', function () {
-  toggleFullscreen().catch(function () {
-    console.warn('Nao foi possivel alternar o modo tela cheia.');
-  });
-});
-
-$(document).on('fullscreenchange webkitfullscreenchange', function () {
-  updateFullscreenButton();
-});
-
 setEmptyState(true);
 syncFontSizeInput();
-updateFullscreenButton();
 
 function loadEpubFromFile(file) {
   if (
