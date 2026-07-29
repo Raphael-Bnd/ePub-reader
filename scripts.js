@@ -348,3 +348,11 @@ $('#spread').on('click', function () {
     $(this).text(newSpread === 'none' ? 'One page' : 'Two pages');
   }
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./service-worker.js').catch(function () {
+      console.warn('Nao foi possivel registrar o service worker.');
+    });
+  });
+}
